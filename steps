@@ -1,0 +1,123 @@
+
+npx react-native init MyApp --template react-native-template-typescript
+
+Instalar el template, puede pedir instalar react-native automaticamente apretando (y)
+
+ir a la ubicacion de MyApp---> ls ---> cd MyApp
+
+instalar vectoricons
+
+yarn add react-native-vector-icons  
+
+Edit android/app/build.gradle ( NOT android/build.gradle ) and add the following:
+	
+	project.ext.vectoricons = [
+		iconFontNames: [ 'MaterialIcons.ttf', 'Ionicons.ttf' ] // Name of the font files you want to copy
+	]
+	apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+	
+	
+import Icon from 'react-native-vector-icons/Ionicons'; 	----> Va a tirar error, instalarle lo que diga el error
+														--->yarn add -D  @types/react-native-vector-icons
+<Icon name="baseball-outline" size={30} color="#900" />
+
+Instalar stack navigation--->El Siguiente es de Getting Started
+
+yarn add @react-navigation/native
+yarn add react-native-screens react-native-safe-area-context
+
+
+react-native-screens package requires one additional configuration step to properly work on Android devices. Edit MainActivity.java file 
+which is located in android/app/src/main/java/<your package name>/MainActivity.java.
+
+Add the following code to the body of MainActivity class:
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
+and make sure to add an import statement at the top of this file:
+import android.os.Bundle;
+
+This change is required to avoid crashes related to View state being not persisted consistently across Activity restarts.
+Now, we need to wrap the whole app in NavigationContainer. Usually you'd do this in your entry file, such as index.js or App.js:
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+
+export default function App() {
+  return (
+    <NavigationContainer>{/* Rest of your app code */}</NavigationContainer>
+  );
+}
+
+Instalar el Stack(El stack normal por el momento da un warning si usas el gesture-handler),usar STACKNATIVE navigator ---->https://reactnavigation.org/docs/native-stack-navigator/
+yarn add @react-navigation/stack
+yarn add react-native-gesture-handler
+
+To finalize installation of react-native-gesture-handler, add the following at the top (make sure it's at the top and there's nothing else before it) of your entry file, such as index.js or App.js:
+
+import 'react-native-gesture-handler';
+
+/*Hasta aca seria lo de la informacion oficial de stackNavig---->usa el createStackNavigator ,no el createNatieStackNavigator*/
+
+<_____Picker----->
+yarn add @react-native-picker/picker
+import {Picker} from '@react-native-picker/picker';
+const [selectedLanguage, setSelectedLanguage] = useState();
+
+Add Picker like this:
+
+<Picker
+  selectedValue={selectedLanguage}
+  onValueChange={(itemValue, itemIndex) =>
+    setSelectedLanguage(itemValue)
+  }>
+  <Picker.Item label="Java" value="java" />
+  <Picker.Item label="JavaScript" value="js" />
+</Picker>
+
+
+
+yarn add @react-navigation/core   ---->este y /stack basico,despues saltar dos pasos abajo
+						yarn add @react-navigation/native-stack ------>Este esta en la de react pero con npm y dice q no es tan customisable
+yarn add @react-navigation/stack --legacy-peer-deps       ------>Este no esta en la doc, el una prueba no agregué legacy-peer-deps
+yarn add react-native-screens react-native-safe-area-context
+
+(Puede pedir esto , pero es de la version 5)
+yarn add react-native-gesture-handler
+
+To finalize installation of react-native-gesture-handler, add the following at the top 
+(make sure it's at the top and there's nothing else before it) of your entry file, such as index.js or App.js:
+
+import 'react-native-gesture-handler';
+
+<_----Navigator para tener varias screens----------------------->
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { View, Text } from 'react-native';
+import MapScreen from '../pages/MapScreen';
+import PermissionsScreen from '../pages/PermissionsScreen';
+
+const Stack = createStackNavigator();
+
+
+const Navigator = () => {
+    return (
+        <Stack.Navigator initialRouteName="MapScreen">
+            <Stack.Screen name="MapScreen" component={MapScreen} />
+
+            <Stack.Screen name="PermissonsCreen" component={PermissionsScreen} />
+        </Stack.Navigator>
+    )
+}
+
+export default Navigator
+
+<------------------------Script para borrar cache METRO------------------------>
+    "scripts": {
+        "android": "react-native run-android",
+        "ios": "react-native run-ios",
+        "start": "react-native start --reset-cache",
+        "test": "jest",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+      },
+<------------------------Script para borrar cache METRO------------------------> {npx react-native start --reset-cache}
