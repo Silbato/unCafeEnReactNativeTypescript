@@ -50,13 +50,16 @@ export default function App() {
 }
 
 Instalar el Stack(El stack normal por el momento da un warning si usas el gesture-handler),usar STACKNATIVE navigator ---->https://reactnavigation.org/docs/native-stack-navigator/
+yarn add @react-navigation/native-stack
+
+/*Hasta que arreglen el warninig no usar este de abajo*/
 yarn add @react-navigation/stack
 yarn add react-native-gesture-handler
 
 To finalize installation of react-native-gesture-handler, add the following at the top (make sure it's at the top and there's nothing else before it) of your entry file, such as index.js or App.js:
 
-import 'react-native-gesture-handler';
-
+yarn add react-native-gesture-handler----->Ver la de abajo
+----->Probar esta version ----->yarn add react-native-gesture-handler@2.1.1
 /*Hasta aca seria lo de la informacion oficial de stackNavig---->usa el createStackNavigator ,no el createNatieStackNavigator*/
 
 <_____Picker----->
